@@ -1,0 +1,50 @@
+﻿<Window x:Class="mastermind.view.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:mastermind.view"
+        mc:Ignorable="d"
+        Title="Mastermind" Height="650" Width="350">
+    <Window.Resources>
+        <Style x:Key="Show_Message" TargetType="TextBlock">
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="Binding.TargetUpdated">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" 
+                                             BeginTime="0:0:0" From="1.0" To="0.0" Duration="0:0:6">
+                            </DoubleAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Menu x:Name="menu" Height="25" VerticalAlignment="Top">
+            <MenuItem Header="Start"  Height="25" Width="43">
+                <MenuItem Header="Neues Spiel" Command="{Binding Path=Start_New_Game}" />
+            </MenuItem>
+        </Menu>
+
+        <local:SecretCodeView DataContext="{Binding Path=Secret_Code}" Margin="75,40,0,0" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+
+        <ListBox x:Name="lstHackersTry" ItemsSource="{Binding Path=Try_List}" Margin="0,95,0,55">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <local:HackerTryView></local:HackerTryView>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Button Command="{Binding Path=Place_Hacker_Try}" Content="Versuch" Margin="0,0,0,25" Height="30" VerticalAlignment="Bottom"></Button>
+        
+        <StatusBar Height="25" VerticalAlignment="Bottom">
+            <StatusBarItem>
+                <TextBlock Name="lblMessage" Text="{Binding Path=Message, NotifyOnTargetUpdated=True}" 
+                           Style="{StaticResource Show_Message}"/>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>
