@@ -53,6 +53,7 @@
     <Compile Include="events\HakcerHasWon.cs" />
     <Compile Include="events\NewGameStarted.cs" />
     <Compile Include="events\SecretCodeGenerated.cs" />
+    <Compile Include="events\Test.cs" />
     <Compile Include="events\TryPlaced.cs" />
     <Compile Include="events\WhitePinsLocated.cs" />
     <Compile Include="IBody.cs" />
