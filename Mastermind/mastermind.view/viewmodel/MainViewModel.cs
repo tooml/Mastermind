@@ -17,8 +17,8 @@ namespace mastermind.view.viewmodel
     {
         private readonly IBody _body;
         private string _message;
-        private ICommand _start_new_game;
-        private ICommand _place_hacker_try;
+        private DelegateCommand _start_new_game;
+        private DelegateCommand _place_hacker_try;
         private SecretCodeViewModel _secrt_code_vm;
         private ObservableCollection<HackerTryViewModel> _try_list;
 
@@ -28,7 +28,7 @@ namespace mastermind.view.viewmodel
             _secrt_code_vm = secret_code_vm;
             _try_list = new ObservableCollection<HackerTryViewModel>();
             _start_new_game = new DelegateCommand(() => Start_new_Game(), () => true);
-            _place_hacker_try = new DelegateCommand(() => Place_hacker_Try(), () => true);
+            _place_hacker_try = new DelegateCommand(() => Place_hacker_Try(), () => _try_list.Any());
         }
 
         public SecretCodeViewModel Secret_Code
@@ -61,12 +61,12 @@ namespace mastermind.view.viewmodel
             } 
         }
 
-        public ICommand Start_New_Game
+        public DelegateCommand Start_New_Game
         {
             get { return _start_new_game; }
         }
 
-        public ICommand Place_Hacker_Try
+        public DelegateCommand Place_Hacker_Try
         {
             get { return _place_hacker_try; }
         }
@@ -79,6 +79,7 @@ namespace mastermind.view.viewmodel
                 Hide_Secret_Code();
                 Try_List.Clear();
                 Unlock_next_Round();
+                _place_hacker_try.CheckPossibleCanExecuteChange();
             });
         }
 
@@ -103,8 +104,8 @@ namespace mastermind.view.viewmodel
         {
             if(Try_List.Any())
             {
-                if (last_try.Pin_One != null && last_try.Pin_Two != null &&
-                    last_try.Pin_Three != null && last_try.Pin_Four != null)
+                if (last_try.Pin_One != Pin.None && last_try.Pin_Two != Pin.None &&
+                    last_try.Pin_Three != Pin.None && last_try.Pin_Four != Pin.None)
                     Complete();
                 else
                     NotComplete();

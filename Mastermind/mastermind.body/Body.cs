@@ -41,7 +41,8 @@ namespace mastermind.body
             OnSucess(message);
         }
 
-        public void Game_flow(Try hackers_try, Action<Result> OnResult, Action OnNewTry, Action<SecretCode> OnWinner)
+        public void Game_flow(Try hackers_try, Action<Result> OnResult, 
+                                                Action OnNewTry, Action<SecretCode> OnWinner)
         {
             _hacker.Register_Hacker_Code(hackers_try);
             var result = _code_analyzer.Analyze_try();

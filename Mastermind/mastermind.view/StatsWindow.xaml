@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:mastermind.view"
         mc:Ignorable="d"
         ResizeMode="NoResize"
-        Title="StatsWindow" Height="140" Width="200">
+        Title="Mastermind Statisik" Height="140" Width="200">
     <Grid>
         <TextBlock Margin="39,17,39,0" TextWrapping="Wrap" Text="{Binding Path=Winner, Mode=OneWay}" 
                                                             TextAlignment="Center" VerticalAlignment="Top"/>
